@@ -25,16 +25,16 @@ function App() {
     },
     {
       key: 2,
-      question: "Which is the 29th state of India ?",
+      question: "What color is are the leaves ?",
       //correctAnswerMarkUpdate,
       //attempt,
       options: {
-        option1: "Telangana",
-        option2: "Uttarakhand",
-        option3: "Uttar Pradesh",
-        option4: "Madhya Pradesh",
+        option1 : "Blue",
+        option2 : "Red",
+        option3 : "Yellow",
+        option4 : "Green",
       },
-      answer: "Telangana"
+      answer: "Green"
     },
     {
       key: 3,
