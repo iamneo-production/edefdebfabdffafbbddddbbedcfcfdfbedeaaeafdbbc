@@ -1,137 +1,123 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import Button from "./components/UI/Button/Button";
 import Card from "./components/UI/Card/Card";
+import React from 'react';
 function App() {
 
+  var qCards;
   var startBtn;
   var resultBtn;
 
   const questionData = [
     {
-      key: 1,
-      question: 'What is the largest animal in the world ?',
+      key:1,
+      question:'What is the largest animal in the world ?',
       //correctAnswerMarkUpdate,
       //attempt,
-      options: {
+      options : {
         option1: 'Shark',
         option2: 'Blue Whale',
         option3: 'Elephant',
         option4: 'Giraffe'
       },
-      answer: 'Blue Whale'
+      answer : 'Blue Whale'
     },
     {
-      key: 2,
-      question: "Which is the 29th state of India ?",
+      key : 2,
+      question : "Which is the 29th state of India ?",
       //correctAnswerMarkUpdate,
       //attempt,
-      options: {
-        option1: "Telangana",
-        option2: "Uttarakhand",
-        option3: "Uttar Pradesh",
-        option4: "Madhya Pradesh",
+      options : {
+        option1 : "Telangana",
+        option2 : "Uttarakhand",
+        option3 : "Uttar Pradesh",
+        option4 : "Madhya Pradesh",
       },
-      answer: "Telangana"
+      answer : "Telangana"
     },
     {
-      key: 3,
-      question: 'Who is the father of the nation ?',
+      key:3,
+      question:'Who is the father of the nation ?',
       //correctAnswerMarkUpdate,
       //attempt,
-      options: {
+      options : {
         option1: 'Mahatma Gandhi',
         option2: 'Jawaharlal Nehru',
         option3: 'Donald Trump',
         option4: 'Barrack Obama'
       },
-      answer: 'Mahatma Gandhi'
+      answer : 'Mahatma Gandhi'
     },
     {
-      key: 4,
-      question: 'Who was the inventor of electricity ?',
+      key:4,
+      question:'Who was the inventor of electricity ?',
       //correctAnswerMarkUpdate,
       //attempt,
-      options: {
+      options : {
         option1: 'Benjamin',
         option2: 'Vikings',
         option3: 'Benjamin Franklin',
         option4: 'Leonardo da Vinci'
       },
-      answer: 'Benjamin Franklin'
+      answer : 'Benjamin Franklin'
     },
     {
-      key: 5,
-      question: 'Which metal is the lightest metal in world ?',
+      key:5,
+      question:'Which metal is the lightest metal in world ?',
       //correctAnswerMarkUpdate,
       //attempt,
-      options: {
+      options : {
         option1: 'Lithium',
         option2: 'Platinum',
         option3: 'Zinc',
-        option4: 'Show Results'
+        option4: 'Gold'
       },
-      answer: 'Lithium'
+      answer : 'Lithium'
     },
 
-
   ]
-
   const [startFlag, setStartFlag] = useState(false);
   const [resultFlag, setResultFlag] = useState(false);
   const [buttonText, setButtonText] = useState('Start Quiz');
   const [questionsCorrect, setQuestionsCorrect] = useState(0);
   const [answered, setAnswered] = useState(0);
 
-  function handleStart() {
+  function handleStart()
+  {
     setStartFlag(true);
-    setResultFlag(false); // Reset the resultFlag to false when Start Quiz is clicked
-    setButtonText('Next Question');
+    setButtonText('Started');
   }
 
-  function handleAnswer(answer) {
-    const currentQuestion = questionData[answered];
-    if (currentQuestion.answer === answer) {
-      setQuestionsCorrect(questionsCorrect + 1);
-    }
+  if(startFlag)
+  {
+    qCards = 
+    <div>
+      {
+        questionData.map((data) => 
+          <Card question= {data.question} options = {{
+            option1 : data.options.option1,
+            option2 : data.options.option2,
+            option3 : data.options.option3,
+            option4 : data.options.option4,
+          }} > </Card>)
+      }
+    </div> 
 
-    if (answered === questionData.length - 1) {
-      setResultFlag(true);
-      setButtonText('Start Quiz');
-    } else {
-      setAnswered(answered + 1);
-      setButtonText('Next Question');
-    }
+    startBtn = <></>;
   }
-
-  function handleShowResults() {
-    setStartFlag(false);
-    setResultFlag(true);
-    setAnswered(0);
-    setQuestionsCorrect(0);
-    setButtonText('Show Results'); // Set the buttonText to 'Show Results'
+  else
+  {
+    startBtn = <Button onClick = {handleStart}>Start Quiz</Button>;
   }
-
-  let qCards;
-
-  if (startFlag && !resultFlag) {
-    qCards = (
-      <div className='data'>
-        <Card
-          question={questionData[answered].question}
-          options={questionData[answered].options}
-          handleAnswer={handleAnswer}
-        />
-      </div>
-    );
-  }
-
+  
   return (
     <div className="App">
-      <h1>Quizz App</h1>
+      <h1>
+        Quizz App
+      </h1>
       {qCards}
-      {!startFlag && !resultFlag && <Button onClick={handleStart}>{buttonText}</Button>}
-      {startFlag && resultFlag && <Button onClick={handleShowResults}>{buttonText}</Button>}
+      {startBtn}
     </div>
   );
 }
